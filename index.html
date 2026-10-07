@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A free, offline filament weight calculator. Check your print and keep a reserve.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Filament Remaining Calculator — Have I got enough filament?</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="calculator.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="brand"><span class="spool" aria-hidden="true">◎</span><span>THE SPOOL CHECK</span></header>
+    <section class="intro"><p class="eyebrow">BEFORE YOU PRESS PRINT</p><h1>Have I got<br>enough filament<span>?</span></h1><p>Weigh your spool. Check your print. Keep a little in reserve.</p></section>
+    <div class="workspace">
+      <div class="compact-result" id="compact-result" data-status="fits" aria-hidden="true"><strong id="compact-title">Example result · Fits with reserve</strong><span id="compact-values">500 g available · 80 g surplus · 50 g reserve headroom</span></div>
+      <section class="card inputs" aria-labelledby="input-title">
+        <div class="section-head"><h2 id="input-title">Your weights</h2><span>All in grams</span></div>
+        <p class="hint" id="input-hint">An editable example is loaded. Replace any weight with yours.</p>
+        <form id="calculator" novalidate>
+          <div class="field"><label for="total">Total spool weight</label><p id="total-hint">Filament + the spool, measured on your scale.</p><div class="weight"><input id="total" name="total" type="text" inputmode="decimal" value="750" required aria-describedby="total-hint total-error"><span>g</span></div><p class="error" id="total-error"></p></div>
+          <div class="field"><label for="empty">Empty spool weight</label><p id="empty-hint">The weight of the spool on its own.</p><div class="weight"><input id="empty" name="empty" type="text" inputmode="decimal" value="250" required aria-describedby="empty-hint empty-error"><span>g</span></div><p class="error" id="empty-error"></p><details class="spool-help"><summary>How do I find the empty spool weight?</summary><p>Weigh an identical empty spool, or check the manufacturer's information for your exact spool model. Spool weights vary; there is no universal default. The loaded weight is only an example.</p></details></div>
+          <div class="field"><label for="print">Estimated print requirement</label><p id="print-hint">Your slicer estimate, including supports and waste.</p><div class="weight"><input id="print" name="print" type="text" inputmode="decimal" value="420" required aria-describedby="print-hint print-error"><span>g</span></div><p class="error" id="print-error"></p></div>
+          <div class="field"><label for="reserve">Reserve <span class="optional">optional</span></label><p id="reserve-hint">Filament to keep after printing. Blank means 0 g.</p><div class="weight"><input id="reserve" name="reserve" type="text" inputmode="decimal" value="30" aria-describedby="reserve-hint reserve-error"><span>g</span></div><p class="error" id="reserve-error"></p></div>
+          <div class="actions"><button type="reset">Load example <span aria-hidden="true">↺</span></button><span>Updates as you type</span></div>
+        </form>
+      </section>
+      <section class="card result" id="result" data-status="fits" aria-labelledby="result-title">
+        <p class="eyebrow" id="result-context">Example result</p><div class="status-icon" id="status-icon" aria-hidden="true">✓</div><h2 id="result-title">Fits with reserve</h2><p id="result-description">Based on these weights, the print is estimated to fit while preserving your reserve.</p>
+        <dl><div class="primary"><dt>Available filament</dt><dd id="available">500 <small>g</small></dd></div><div><dt id="balance-label">Surplus after print</dt><dd id="balance">80 g</dd></div><div><dt id="headroom-label">Headroom after reserve</dt><dd id="headroom">50 g</dd></div></dl>
+        <p class="result-note" id="result-note">Estimated reserve headroom: 50 g.</p>
+        <p class="estimate-note">A weight-based estimate, not a guarantee. Leave room for scale error and unexpected print waste.</p>
+      </section>
+    </div>
+    <p id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+    <details><summary>How the calculation works</summary><p><strong>Available filament</strong> = total spool weight − empty spool weight.</p><p><strong>Surplus / shortfall</strong> = available filament − print requirement.</p><p><strong>Reserve headroom</strong> = available filament − print requirement − reserve. Zero or more means the print fits while preserving your reserve.</p><p>Use non-negative weights with up to three decimal places (a decimal point), up to 1,000,000 g. Equal weights are accepted; a zero print requirement is valid.</p></details>
+    <footer><span>Free · No accounts · No ads</span><span>Your weights stay in your browser.</span></footer>
+    <p class="privacy-note">No analytics scripts or tracking cookies are added by this calculator. The hosting provider receives ordinary page requests. Calculations run locally in your browser.</p>
+    <noscript><p class="error">Enable JavaScript to calculate. The displayed values are only the example.</p></noscript>
+  </main>
+</body>
+</html>
