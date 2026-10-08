@@ -4,6 +4,7 @@ const byId = id => document.getElementById(id);
 const grams = value => (value / 1000).toLocaleString('en', {maximumFractionDigits: 3}) + ' g';
 let isExample = true;
 let announcementTimer;
+let calculationTimer;
 function summarize(valid) {
   const prefix = isExample ? 'Example result · ' : 'Estimate · ';
   const title = prefix + byId('result-title').textContent;
@@ -20,6 +21,7 @@ function summarize(valid) {
   }, 350);
 }
 function update() {
+  clearTimeout(calculationTimer);
   const raw = Object.fromEntries(new FormData(form));
   const result = calculateFilament(raw);
   byId('result-context').textContent = isExample ? 'Example result' : 'Your estimate';
@@ -53,6 +55,11 @@ function update() {
   byId('headroom-label').textContent = result.headroom >= 0 ? 'Headroom after reserve' : 'Shortfall including reserve';
   byId('headroom').textContent = grams(Math.abs(result.headroom));
   summarize(true);
+  if (!isExample) {
+    calculationTimer = setTimeout(() => {
+      try { window.trackCalculationCompleted?.(); } catch (_) { /* Optional analytics. */ }
+    }, 1000);
+  }
 }
 form.addEventListener('input', () => { isExample = false; update(); });
 form.addEventListener('submit', event => event.preventDefault());

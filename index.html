@@ -4,11 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Free Filament Remaining Calculator: estimate available filament, print surplus or shortfall, and reserve in grams. No signup required.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'none'; form-action 'none'">
   <title>Filament Remaining Calculator — Have I got enough filament?</title>
   <link rel="stylesheet" href="style.css">
   <script src="calculator.js" defer></script>
   <script src="app.js" defer></script>
+  <script src="analytics.js" defer></script>
 </head>
 <body>
   <main>
@@ -37,7 +38,7 @@
     <p id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
     <details><summary>How the calculation works</summary><p><strong>Available filament</strong> = total spool weight − empty spool weight.</p><p><strong>Surplus / shortfall</strong> = available filament − print requirement.</p><p><strong>Reserve headroom</strong> = available filament − print requirement − reserve. Zero or more means the print fits while preserving your reserve.</p><p>Use non-negative weights with up to three decimal places (a decimal point), up to 1,000,000 g. Equal weights are accepted; a zero print requirement is valid.</p></details>
     <footer><span>Free · No accounts · No ads</span><span>Your weights stay in your browser.</span></footer>
-    <p class="privacy-note">No analytics scripts or tracking cookies are added by this calculator. The hosting provider receives ordinary page requests. Calculations run locally in your browser.</p>
+    <p class="privacy-note">This site uses Google Analytics to measure visits and completed calculations. Google Analytics uses cookies and processes browser, device and usage information. We do not send your weights, calculation results, filenames, names or email addresses. Advertising personalization and Google signals are disabled in this site's tag. Calculations run in your browser even if analytics is blocked. The hosting provider receives ordinary page requests. <a href="https://policies.google.com/technologies/partner-sites" rel="noreferrer">How Google uses information</a>.</p>
     <noscript><p class="error">Enable JavaScript to calculate. The displayed values are only the example.</p></noscript>
   </main>
 </body>
